@@ -1,17 +1,21 @@
+// Function to fetch books from the Game of Thrones API
 function fetchBooks() {
-  // To pass the tests, don't forget to return your fetch!
-  
+  // Make a fetch request to the API
+  return fetch("https://anapioficeandfire.com/api/books")
+    .then((response) => response.json()) // Convert response to JSON
+    .then((books) => renderBooks(books)) // Pass the JSON data to renderBooks
+    .catch((error) => console.error("Error fetching books:", error)); // Handle errors
 }
 
+// Function to render book titles in the DOM
 function renderBooks(books) {
-  const main = document.querySelector('main');
-  books.forEach(book => {
-    const h2 = document.createElement('h2');
-    h2.innerHTML = book.name;
-    main.appendChild(h2);
+  const mainElement = document.querySelector("main"); // Select the <main> element
+  books.forEach((book) => {
+    const bookElement = document.createElement("h2"); // Create an <h2> for each book
+    bookElement.textContent = book.name; // Set the book title
+    mainElement.appendChild(bookElement); // Append the title to <main>
   });
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-  fetchBooks();
-});
+// Call fetchBooks when the page loads
+document.addEventListener("DOMContentLoaded", fetchBooks);
